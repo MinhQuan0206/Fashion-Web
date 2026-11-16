@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cài đặt - SR Store</title>
+    <!-- Bootstrap CSS -->
+    <link href="cssBootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/Admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="logo"><h2>SR STORE</h2></div>
+            <button class="sidebar-close d-md-none" id="sidebarCloseBtn" aria-label="Đóng menu"><span>&times;</span></button>
+            <ul class="nav-links">
+                <li>
+                    <a href="AdminDashboard.html"><i class="fas fa-th-large"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="AdminHome.html"><i class="fas fa-home"></i> Trang chủ</a>
+                </li>
+                <li>
+                    <a href="AdminProduct.html"><i class="fas fa-tshirt"></i> Sản Phẩm</a>
+                </li>
+                <li>
+                    <a href="AdminOrder.html"><i class="fas fa-shopping-cart"></i> Đơn Hàng</a>
+                </li>
+                <li>
+                    <a href="AdminCustomer.html"><i class="fas fa-users"></i> Khách Hàng</a>
+                </li>
+                <li>
+                    <a href="AdminCategory.html"><i class="fas fa-tags"></i> Danh Mục</a>
+                </li>
+                <li>
+                    <a href="AdminReport.html"><i class="fas fa-chart-bar"></i> Báo Cáo</a>
+                </li>
+                <li class="active">
+                    <a href="AdminSetting.html"><i class="fas fa-cog"></i> Cài Đặt</a>
+                </li>
+            </ul>
+            <div class="admin-info">
+                <img src="../upload/img/avatar.jpg" alt="Admin Avatar" class="profile-image">
+                <div>
+                    <p class="admin-name">Admin</p>
+                    <a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <header class="header">
+                <button class="sidebar-toggle" id="sidebarToggleBtn" aria-label="Mở menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="header-right" style="display: flex; align-items: center; gap: 1rem; margin-left: auto; position: relative;">
+                    <div class="notification" id="notificationBell" style="position: relative; cursor: pointer;">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                        <div class="notification-dropdown" id="notificationDropdown" style="display: none; position: absolute; top: 120%; right: 0; width: 340px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); border-radius: 8px; z-index: 9999;">
+                            <div style="padding: 12px 16px; border-bottom: 1px solid #eee; font-weight: 600;">Thông báo cài đặt</div>
+                            <ul id="notificationList" style="list-style: none; margin: 0; padding: 0; max-height: 320px; overflow-y: auto;"></ul>
+                            <div style="padding: 10px 0; text-align: center; border-top: 1px solid #eee;">
+                                <a href="#" style="color: #007bff; font-size: 14px; text-decoration: none;">Xem tất cả</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile">
+                        <img src="../upload/img/avatar.jpg" alt="Admin Avatar" class="profile-image">
+                    </div>
+                </div>
+            </header>
+            <div class="content">
+                <div class="page-header">
+                    <h1>Cài đặt hệ thống</h1>
+                </div>
+
+                <!-- General Settings -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Cài đặt chung</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">Tên cửa hàng</label>
+                                <input type="text" class="form-control" value="SR Store">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email liên hệ</label>
+                                <input type="email" class="form-control" value="contact@srstore.com">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Số điện thoại</label>
+                                <input type="tel" class="form-control" value="0123456789">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Địa chỉ</label>
+                                <textarea class="form-control" rows="3">123 Đường ABC, Quận XYZ, TP.HCM</textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Email Settings -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Cài đặt email</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">SMTP Server</label>
+                                <input type="text" class="form-control" value="smtp.gmail.com">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">SMTP Port</label>
+                                <input type="number" class="form-control" value="587">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" value="system@srstore.com">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Mật khẩu</label>
+                                <input type="password" class="form-control" value="********">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                            <button type="button" class="btn btn-secondary">Kiểm tra kết nối</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Payment Settings -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Cài đặt thanh toán</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label">Thanh toán khi nhận hàng (COD)</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label">Thanh toán qua VNPay</label>
+                                </div>
+                                <div class="mt-2">
+                                    <label class="form-label">Terminal ID</label>
+                                    <input type="text" class="form-control" value="VNPAY001">
+                                </div>
+                                <div class="mt-2">
+                                    <label class="form-label">Secret Key</label>
+                                    <input type="password" class="form-control" value="********">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label">Thanh toán qua Momo</label>
+                                </div>
+                                <div class="mt-2">
+                                    <label class="form-label">Partner Code</label>
+                                    <input type="text" class="form-control" value="MOMO001">
+                                </div>
+                                <div class="mt-2">
+                                    <label class="form-label">Access Key</label>
+                                    <input type="password" class="form-control" value="********">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Security Settings -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Cài đặt bảo mật</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label">Xác thực 2 lớp</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                    <label class="form-check-label">Tự động khóa tài khoản sau 5 lần đăng nhập sai</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Thời gian hết hạn phiên đăng nhập (phút)</label>
+                                <input type="number" class="form-control" value="30">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS with Popper -->
+    <script src="jsBootstrap/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="js/Admin.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var menuToggle = document.querySelector('.mobile-menu-toggle');
+        var sidebar = document.getElementById('sidebar');
+        var navLinks = document.querySelectorAll('.sidebar .nav-links a');
+        if (menuToggle && sidebar) {
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+            });
+        }
+        navLinks.forEach(function(link) {
+            link.addEventListener('click', function() {
+                if (window.innerWidth < 992 && sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        });
+        // Thông báo cứng về cài đặt
+        const notifications = [
+            {
+                icon: 'fa-cog',
+                title: 'Cập nhật cấu hình',
+                content: 'Cấu hình hệ thống vừa được thay đổi.',
+                time: '10 phút trước'
+            },
+            {
+                icon: 'fa-envelope',
+                title: 'Cập nhật email',
+                content: 'Email liên hệ đã được thay đổi thành contact@srstore.com.',
+                time: '30 phút trước'
+            },
+            {
+                icon: 'fa-shield-alt',
+                title: 'Bảo mật',
+                content: 'Đã bật xác thực 2 lớp cho tài khoản admin.',
+                time: '2 giờ trước'
+            }
+        ];
+        const notificationList = document.getElementById('notificationList');
+        notificationList.innerHTML = notifications.map(n => `
+            <li class="notification-item">
+                <span class="notification-icon"><i class="fas ${n.icon}"></i></span>
+                <div class="notification-content">
+                    <div class="notification-title">${n.title}</div>
+                    <div>${n.content}</div>
+                    <div class="notification-time">${n.time}</div>
+                </div>
+            </li>
+        `).join('');
+        // Toggle dropdown
+        const bell = document.getElementById('notificationBell');
+        const dropdown = document.getElementById('notificationDropdown');
+        bell.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
+        // Click ngoài dropdown sẽ ẩn
+        document.addEventListener('click', function(e) {
+            if (!dropdown.contains(e.target) && e.target !== bell) {
+                dropdown.style.display = 'none';
+            }
+        });
+    });
+    </script>
+    <!-- Thêm style cho dropdown thông báo -->
+    <style>
+    .notification-dropdown::-webkit-scrollbar {
+        width: 6px;
+    }
+    .notification-dropdown::-webkit-scrollbar-thumb {
+        background: #eee;
+        border-radius: 4px;
+    }
+    .notification-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 16px;
+        border-bottom: 1px solid #f3f3f3;
+        font-size: 15px;
+        transition: background 0.2s;
+    }
+    .notification-item:last-child {
+        border-bottom: none;
+    }
+    .notification-item:hover {
+        background: #f7f7f7;
+    }
+    .notification-icon {
+        color: #4ca3ff;
+        font-size: 18px;
+        margin-top: 2px;
+    }
+    .notification-content {
+        flex: 1;
+    }
+    .notification-title {
+        font-weight: 600;
+        font-size: 15px;
+    }
+    .notification-time {
+        color: #888;
+        font-size: 12px;
+        margin-top: 2px;
+    }
+    </style>
+</body>
+</html> 

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý đơn hàng - SR Store</title>
+    <!-- Bootstrap CSS -->
+    <link href="cssBootstrap/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/Admin.css">
+    <!-- Responsive CSS -->
+
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="logo"><h2>SR STORE</h2></div>
+            <button class="sidebar-close d-md-none" id="sidebarCloseBtn" aria-label="Đóng menu"><span>&times;</span></button>
+            <ul class="nav-links">
+                <li>
+                    <a href="AdminDashboard.html"><i class="fas fa-th-large"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="AdminHome.html"><i class="fas fa-home"></i> Trang chủ</a>
+                </li>
+                <li>
+                    <a href="AdminProduct.html"><i class="fas fa-tshirt"></i> Sản Phẩm</a>
+                </li>
+                <li class="active">
+                    <a href="AdminOrder.html"><i class="fas fa-shopping-cart"></i> Đơn Hàng</a>
+                </li>
+                <li>
+                    <a href="AdminCustomer.html"><i class="fas fa-users"></i> Khách Hàng</a>
+                </li>
+                <li>
+                    <a href="AdminCategory.html"><i class="fas fa-tags"></i> Danh Mục</a>
+                </li>
+                <li>
+                    <a href="AdminReport.html"><i class="fas fa-chart-bar"></i> Báo Cáo</a>
+                </li>
+                <li>
+                    <a href="AdminSetting.html"><i class="fas fa-cog"></i> Cài Đặt</a>
+                </li>
+            </ul>
+            <div class="admin-info">
+                <img src="../upload/img/avatar.jpg" alt="Admin Avatar" class="profile-image">
+                <div>
+                    <p class="admin-name">Admin</p>
+                    <a href="#" class="logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <header class="header">
+                <button class="sidebar-toggle" id="sidebarToggleBtn" aria-label="Mở menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="header-right" style="display: flex; align-items: center; gap: 1rem; margin-left: auto; position: relative;">
+                    <div class="notification" id="notificationBell" style="position: relative; cursor: pointer;">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                        <div class="notification-dropdown" id="notificationDropdown" style="display: none; position: absolute; top: 120%; right: 0; width: 340px; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); border-radius: 8px; z-index: 9999;">
+                            <div style="padding: 12px 16px; border-bottom: 1px solid #eee; font-weight: 600;">Thông báo đơn hàng</div>
+                            <ul id="notificationList" style="list-style: none; margin: 0; padding: 0; max-height: 320px; overflow-y: auto;"></ul>
+                            <div style="padding: 10px 0; text-align: center; border-top: 1px solid #eee;">
+                                <a href="#" style="color: #007bff; font-size: 14px; text-decoration: none;">Xem tất cả</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile">
+                        <img src="../upload/img/avatar.jpg" alt="Admin Avatar" class="profile-image">
+                    </div>
+                </div>
+            </header>
+            <!-- Orders Content -->
+            <div class="content" id="content-container">
+                <div class="page-content" id="orders-content">
+                    <div class="page-header d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-4">
+                        <h1 class="mb-0">Quản lý đơn hàng</h1>
+                        <div class="d-flex gap-2 w-100 w-md-auto">
+                            <button id="deleteSelectedOrderBtn" class="btn btn-danger" disabled>
+                                <i class="fas fa-trash"></i> Xóa đã chọn
+                            </button>
+                            <button class="btn btn-success flex-fill"><i class="fas fa-file-excel me-1"></i> Xuất Excel</button>
+                            <button class="btn btn-danger flex-fill"><i class="fas fa-file-pdf me-1"></i> Xuất PDF</button>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row g-3 mb-3">
+                                <div class="col-12 col-md-6">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0">
+                                            <i class="fas fa-search text-muted"></i>
+                                        </span>
+                                        <input type="text" class="form-control border-start-0" placeholder="Tìm đơn hàng...">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="filter-options d-flex flex-column flex-md-row gap-2">
+                                        <select class="form-select">
+                                            <option value="">Trạng thái</option>
+                                            <option value="pending">Chờ xác nhận</option>
+                                            <option value="processing">Đang xử lý</option>
+                                            <option value="shipping">Đang giao</option>
+                                            <option value="completed">Đã hoàn thành</option>
+                                            <option value="cancelled">Đã hủy</option>
+                                        </select>
+                                        <select class="form-select">
+                                            <option value="">Phương thức thanh toán</option>
+                                            <option value="cod">COD</option>
+                                            <option value="bank-transfer">Chuyển khoản</option>
+                                            <option value="momo">Ví MoMo</option>
+                                        </select>
+                                        <select class="form-select">
+                                            <option value="">Sắp xếp theo</option>
+                                            <option value="newest">Mới nhất</option>
+                                            <option value="oldest">Cũ nhất</option>
+                                            <option value="total-high">Tổng tiền (Cao-Thấp)</option>
+                                            <option value="total-low">Tổng tiền (Thấp-Cao)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" style="width: 40px;"><input type="checkbox" id="select-all" class="form-check-input"></th>
+                                            <th>Mã đơn hàng</th>
+                                            <th>Khách hàng</th>
+                                            <th>Ngày đặt</th>
+                                            <th>Tổng tiền</th>
+                                            <th>Thanh toán</th>
+                                            <th>Trạng thái</th>
+                                            <th style="width: 120px;">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr data-order-id="ORD001">
+                                            <td><input type="checkbox" class="order-checkbox form-check-input" data-id="ORD001"></td>
+                                            <td>#ORD001</td>
+                                            <td>Nguyễn Văn A</td>
+                                            <td>15/03/2024</td>
+                                            <td>1,299,000đ</td>
+                                            <td>COD</td>
+                                            <td><span class="status pending">Chờ xác nhận</span></td>
+                                            <td>
+                                                <div class="action-buttons">
+                                                    <button class="btn-view-order" data-order-id="ORD001" data-hide="0" data-bs-toggle="tooltip" title="Xem chi tiết">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-success" data-bs-toggle="tooltip" title="Xác nhận">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr data-order-id="ORD002">
+                                            <td><input type="checkbox" class="order-checkbox form-check-input" data-id="ORD002"></td>
+                                            <td>#ORD002</td>
+                                            <td>Trần Thị B</td>
+                                            <td>15/03/2024</td>
+                                            <td>899,000đ</td>
+                                            <td>Chuyển khoản</td>
+                                            <td><span class="status processing">Đang xử lý</span></td>
+                                            <td>
+                                                <div class="action-buttons">
+                                                    <button class="btn-view-order" data-order-id="ORD002" data-hide="0" data-bs-toggle="tooltip" title="Xem chi tiết">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Cập nhật">
+                                                        <i class="fas fa-truck"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr data-order-id="ORD003">
+                                            <td><input type="checkbox" class="order-checkbox form-check-input" data-id="ORD003"></td>
+                                            <td>#ORD003</td>
+                                            <td>Lê Văn C</td>
+                                            <td>14/03/2024</td>
+                                            <td>2,499,000đ</td>
+                                            <td>Ví MoMo</td>
+                                            <td><span class="status shipping">Đang giao</span></td>
+                                            <td>
+                                                <div class="action-buttons">
+                                                    <button class="btn-view-order" data-order-id="ORD003" data-hide="0" data-bs-toggle="tooltip" title="Xem chi tiết">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-success" data-bs-toggle="tooltip" title="Hoàn thành">
+                                                        <i class="fas fa-check-double"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr data-order-id="ORD004">
+                                            <td><input type="checkbox" class="order-checkbox form-check-input" data-id="ORD004"></td>
+                                            <td>#ORD004</td>
+                                            <td>Phạm Thị D</td>
+                                            <td>14/03/2024</td>
+                                            <td>1,799,000đ</td>
+                                            <td>COD</td>
+                                            <td><span class="status completed">Đã hoàn thành</span></td>
+                                            <td>
+                                                <div class="action-buttons">
+                                                    <button class="btn-view-order" data-order-id="ORD004" data-hide="0" data-bs-toggle="tooltip" title="Xem chi tiết">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr data-order-id="ORD005">
+                                            <td><input type="checkbox" class="order-checkbox form-check-input" data-id="ORD005"></td>
+                                            <td>#ORD005</td>
+                                            <td>Hoàng Văn E</td>
+                                            <td>13/03/2024</td>
+                                            <td>999,000đ</td>
+                                            <td>Chuyển khoản</td>
+                                            <td><span class="status cancelled">Đã hủy</span></td>
+                                            <td>
+                                                <div class="action-buttons">
+                                                    <button class="btn-view-order" data-order-id="ORD005" data-hide="0" data-bs-toggle="tooltip" title="Xem chi tiết">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <nav aria-label="Page navigation" class="d-flex justify-content-center mt-4">
+                                <ul class="pagination pagination-sm flex-wrap">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">10</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
+    <!-- Order Details Modal -->
+<div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderDetailsModalLabel">Chi tiết đơn hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="order-info">
+                    <p><strong>Mã đơn hàng:</strong> <span id="orderId"></span></p>
+                    <p><strong>Ngày đặt:</strong> <span id="orderDate"></span></p>
+                    <p><strong>Trạng thái:</strong> <span id="orderStatus"></span></p>
+                    <p><strong>Tổng tiền:</strong> <span id="orderTotal"></span></p>
+                </div>
+                <div class="customer-info mb-3">
+                    <h6>Thông tin khách hàng</h6>
+                    <p><strong>Họ tên:</strong> <span id="customerName"></span></p>
+                    <p><strong>Email:</strong> <span id="customerEmail"></span></p>
+                    <p><strong>Số điện thoại:</strong> <span id="customerPhone"></span></p>
+                    <p><strong>Địa chỉ:</strong> <span id="customerAddress"></span></p>
+                </div>
+                <div class="payment-info mb-3">
+                    <h6>Thông tin thanh toán</h6>
+                    <p><strong>Phương thức:</strong> <span id="paymentMethod"></span></p>
+                    <p><strong>Ghi chú:</strong> <span id="orderNote"></span></p>
+                </div>
+                <h6 class="mt-3">Sản phẩm đã đặt</h6>
+                <table id="orderItemsTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Order items will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Bootstrap JS with Popper -->
+    <script src="jsBootstrap/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="js/Admin.js"></script>
+    <script>
+    // Đảm bảo chỉ toggle class 'show' cho sidebar khi bấm hamburger
+    // Xóa mọi logic toggle class 'active' hoặc nút đóng sidebar riêng
+    document.addEventListener('DOMContentLoaded', function() {
+        // Thông báo cứng về đơn hàng
+        const notifications = [
+            {
+                icon: 'fa-shopping-cart',
+                title: 'Đơn hàng mới',
+                content: 'Đơn hàng #ORD123 vừa được tạo.',
+                time: '3 phút trước'
+            },
+            {
+                icon: 'fa-times-circle',
+                title: 'Đơn hàng bị hủy',
+                content: 'Đơn hàng #ORD120 đã bị hủy bởi khách.',
+                time: '20 phút trước'
+            },
+            {
+                icon: 'fa-truck',
+                title: 'Đơn hàng đang giao',
+                content: 'Đơn hàng #ORD119 đang được giao cho khách.',
+                time: '1 giờ trước'
+            }
+        ];
+        const notificationList = document.getElementById('notificationList');
+        notificationList.innerHTML = notifications.map(n => `
+            <li class="notification-item">
+                <span class="notification-icon"><i class="fas ${n.icon}"></i></span>
+                <div class="notification-content">
+                    <div class="notification-title">${n.title}</div>
+                    <div>${n.content}</div>
+                    <div class="notification-time">${n.time}</div>
+                </div>
+            </li>
+        `).join('');
+        // Toggle dropdown
+        const bell = document.getElementById('notificationBell');
+        const dropdown = document.getElementById('notificationDropdown');
+        bell.addEventListener('click', function(e) {
+            e.stopPropagation();
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
+        // Click ngoài dropdown sẽ ẩn
+        document.addEventListener('click', function(e) {
+            if (!dropdown.contains(e.target) && e.target !== bell) {
+                dropdown.style.display = 'none';
+            }
+        });
+    });
+    </script>
+    <!-- Thêm style cho dropdown thông báo -->
+    <style>
+    .notification-dropdown::-webkit-scrollbar {
+        width: 6px;
+    }
+    .notification-dropdown::-webkit-scrollbar-thumb {
+        background: #eee;
+        border-radius: 4px;
+    }
+    .notification-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 16px;
+        border-bottom: 1px solid #f3f3f3;
+        font-size: 15px;
+        transition: background 0.2s;
+    }
+    .notification-item:last-child {
+        border-bottom: none;
+    }
+    .notification-item:hover {
+        background: #f7f7f7;
+    }
+    .notification-icon {
+        color: #4ca3ff;
+        font-size: 18px;
+        margin-top: 2px;
+    }
+    .notification-content {
+        flex: 1;
+    }
+    .notification-title {
+        font-weight: 600;
+        font-size: 15px;
+    }
+    .notification-time {
+        color: #888;
+        font-size: 12px;
+        margin-top: 2px;
+    }
+    </style>
+</body>
+</html> 

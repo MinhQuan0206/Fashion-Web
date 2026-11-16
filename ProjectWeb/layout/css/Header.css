@@ -1,0 +1,342 @@
+/* ProjectWeb/layout/css/Header.css */
+
+/* --- Biến màu và kích thước cơ bản --- */
+:root {
+    --header-primary-color: #007bff; /* Màu xanh dương chủ đạo của Bootstrap */
+    --header-secondary-color: #6c757d; /* Màu xám phụ của Bootstrap */
+    --header-light-bg: #f8f9fa;       /* Nền sáng */
+    --header-dark-bg: #343a40;        /* Nền tối */
+    --header-text-light: #f8f9fa;
+    --header-text-dark: #212529;
+    --header-border-color: #dee2e6;
+    --header-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+
+    --top-banner-height: 35px;
+    --main-header-height-desktop: 70px;
+    --main-header-height-mobile: 60px;
+    --main-nav-height: 50px;
+    --mobile-search-height: 50px;
+}
+
+body {
+    /* Sẽ được cập nhật bằng JavaScript để tránh nội dung bị che bởi header cố định */
+    padding-top: 150px; /* Giá trị tạm thời, JS sẽ tính toán chính xác */
+    transition: padding-top 0.3s ease-out;
+}
+
+/* --- Top Banner --- */
+.top-banner {
+    background-color: var(--header-primary-color);
+    color: var(--header-text-light);
+    font-size: 0.875rem;
+    height: var(--top-banner-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1035; /* Cao nhất */
+    box-shadow: var(--header-box-shadow);
+}
+.top-banner-carousel p {
+    margin-bottom: 0;
+}
+
+/* --- Main Header (Logo, Search, Actions) --- */
+header { /* Thẻ <header> */
+    background-color: #ffffff;
+    position: fixed;
+    /* top: var(--top-banner-height); JS sẽ đặt giá trị này */
+    left: 0;
+    width: 100%;
+    z-index: 1030;
+    box-shadow: var(--header-box-shadow);
+    border-bottom: 1px solid var(--header-border-color);
+}
+
+.main-header { /* class .main-header */
+    min-height: var(--main-header-height-desktop);
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.logo img {
+    max-height: 55px; /* Điều chỉnh nếu cần */
+    transition: max-height 0.3s ease;
+}
+
+.search-container {
+    display: flex;
+    width: 100%; /* Ensure it can take up space */
+    max-width: 850px; /* Default max-width for larger screens, adjust as needed */
+    margin: 0 auto; /* Center it in its container if parent allows */
+}
+
+.search-container form {
+    display: flex;
+    width: 100%;
+}
+
+.search-input {
+    border: 1px solid var(--header-border-color);
+    padding: 0.5rem 0.75rem;
+    flex-grow: 1;
+    border-radius: 0.25rem 0 0 0.25rem;
+    font-size: 0.9rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    min-width: 200px; /* Minimum width to prevent it from becoming too small */
+}
+.search-input:focus {
+    outline: none;
+    border-color: var(--header-primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+.search-button {
+    background-color: var(--header-primary-color);
+    color: white;
+    border: 1px solid var(--header-primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 0 0.25rem 0.25rem 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.search-button:hover {
+    background-color: #0056b3; /* Darker blue */
+}
+
+.header-action {
+    margin-left: 1rem;
+}
+.header-action .action-link {
+    color: var(--header-text-dark);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+.header-action .action-link:hover {
+    color: var(--header-primary-color);
+    background-color: var(--header-light-bg);
+}
+.header-action .action-link i {
+    font-size: 1.3rem;
+    margin-right: 0.3rem;
+}
+.cart-count {
+    background-color: #dc3545; /* Bootstrap danger color */
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    line-height: 1;
+    font-weight: bold;
+}
+
+/* Dropdowns (Account, Cart) - Thêm style nếu cần, Bootstrap đã có sẵn */
+.account-dropdown .dropdown-header, .cart-dropdown .dropdown-header {
+    font-size: 1rem;
+    font-weight: 500;
+}
+.account-dropdown .dropdown-item, .cart-dropdown .dropdown-item {
+    font-size: 0.9rem;
+}
+.account-dropdown .form-control, .cart-dropdown .form-control {
+    font-size: 0.9rem;
+}
+
+/* --- Mobile Search Bar (ẩn trên desktop) --- */
+.mobile-search { /* class .mobile-search */
+    background-color: #ffffff;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--header-border-color);
+    position: fixed;
+    /* top: ... JS sẽ đặt giá trị này */
+    left: 0;
+    width: 100%;
+    z-index: 1025; /* Dưới main header, trên main-nav */
+    box-shadow: var(--header-box-shadow);
+}
+
+/* --- Main Navigation --- */
+.main-nav { /* class .main-nav */
+    background-color: var(--header-dark-bg);
+    min-height: var(--main-nav-height);
+    display: flex;
+    align-items: center;
+    position: fixed;
+    /* top: ... JS sẽ đặt giá trị này */
+    left: 0;
+    width: 100%;
+    z-index: 1020; /* Dưới cùng trong các thanh cố định */
+    box-shadow: var(--header-box-shadow);
+}
+.main-nav .navbar { /* Thẻ nav bên trong .main-nav */
+    padding: 0;
+    width:100%;
+}
+.main-nav .navbar-nav .nav-item .nav-link {
+    color: var(--header-text-light);
+    padding: 0.8rem 1.2rem; /* Tăng padding */
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    border-radius: 0.25rem; /* Bo góc nhẹ cho link */
+    margin: 0 0.2rem; /* Khoảng cách nhỏ giữa các item */
+}
+.main-nav .navbar-nav .nav-item .nav-link:hover,
+.main-nav .navbar-nav .nav-item .nav-link.active {
+    background-color: var(--header-primary-color);
+    color: white;
+}
+.main-nav .navbar-nav .nav-item .nav-link i {
+    margin-right: 0.5rem;
+}
+
+/* Mobile Menu Button (.navbar-toggler) */
+.navbar-toggler {
+    border: 1px solid var(--header-secondary-color);
+    padding: 0.25rem 0.5rem;
+}
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(33, 37, 41, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* --- Responsive: 4 Breakpoints --- */
+
+/* LG (Desktop lớn >= 992px) - Bootstrap default, ít thay đổi */
+
+/* MD (Desktop nhỏ / Tablet ngang < 992px) */
+@media (max-width: 991.98px) {
+    .main-header {
+        min-height: calc(var(--main-header-height-desktop) - 10px); /* Giảm nhẹ chiều cao */
+    }
+    .logo img {
+        max-height: 50px;
+    }
+    .search-container { 
+        max-width: 700px; /* Adjusted width for medium screens */
+    }
+    .main-nav .navbar-collapse { /* Menu xổ xuống */
+        position: absolute;
+        top: 100%; /* Ngay dưới thanh .main-nav */
+        left: 0;
+        width: 100%;
+        background-color: var(--header-dark-bg);
+        border-top: 1px solid var(--header-primary-color);
+        box-shadow: 0 8px 10px rgba(0,0,0,0.15);
+        max-height: calc(100vh - var(--main-nav-height) - var(--main-header-height-desktop) - var(--top-banner-height)); /* Giới hạn chiều cao */
+        overflow-y: auto;
+    }
+    .main-nav .navbar-nav .nav-item {
+        width:100%;
+    }
+    .main-nav .navbar-nav .nav-item .nav-link {
+        padding: 0.9rem 1.5rem;
+        margin:0;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .main-nav .navbar-nav .nav-item:last-child .nav-link {
+        border-bottom: none;
+    }
+}
+
+/* SM (Tablet đứng / Mobile ngang < 768px) */
+@media (max-width: 767.98px) {
+    .main-header {
+        min-height: var(--main-header-height-mobile);
+    }
+    /* Mobile search is now primary, hide desktop search if preferred */
+    .main-header .search-container {
+        /* display: none; /* Optionally hide if mobile search is always visible */
+        max-width: 100%; /* Take full width when it's the only search */
+    }
+     .mobile-search .search-container { /* Style the mobile specific search bar */
+        max-width: 95%; /* Example: use most of the width */
+        margin: 0 auto;
+    }
+    .logo img {
+        max-height: 45px;
+    }
+    .header-action .action-link span.d-none.d-lg-inline-block {
+        display: none !important; /* Ẩn chữ, chỉ giữ icon */
+    }
+     .header-action .action-link i {
+        margin-right: 0;
+    }
+    .header-action {
+        margin-left: 0.5rem; /* Giảm khoảng cách */
+    }
+    /* .search-container trong .main-header (col-md-6) sẽ bị ẩn do class d-none d-md-block */
+    /* .mobile-search sẽ hiện ra */
+}
+
+/* XS (Mobile đứng < 576px) */
+@media (max-width: 575.98px) {
+    .top-banner {
+        font-size: 0.75rem; /* Chữ nhỏ hơn trên màn hình rất nhỏ */
+    }
+    .main-header {
+        padding: 0.25rem 0;
+    }
+    .logo img {
+        max-height: 40px; /* Logo nhỏ hơn nữa */
+    }
+    .main-header .search-container { /* Ensure it's not too wide here if not hidden */
+         max-width: 100%;
+    }
+     .mobile-search .search-container { /* Mobile search for very small screens */
+        max-width: 98%;
+    }
+     .header-action .action-link i {
+        font-size: 1.1rem;
+    }
+     .header-action {
+        margin-left: 0.25rem;
+    }
+    .account-dropdown, .cart-dropdown { /* Dropdown chiếm toàn màn hình hơn */
+        width: 280px; /* Hoặc 90vw */
+        right: -15px !important; /* Điều chỉnh vị trí */
+    }
+    .main-nav .navbar-nav .nav-item .nav-link {
+        font-size: 0.85rem;
+        padding: 0.8rem 1.2rem;
+    }
+}
+
+/* Styling for the new header layout with integrated logo and brand text */
+.desktop-logo-img {
+  max-height: 40px; /* Adjusted height for desktop inline logo */
+}
+
+.rs-store-brand-text {
+  font-weight: 600; /* Bolder text */
+  color: var(--header-text-dark);
+  font-size: 1.25rem; /* Slightly larger brand text */
+  white-space: nowrap; /* Prevent text from wrapping */
+  line-height: 1; /* Align better with logo and search */
+}
+
+/* Ensure the search container in the new layout takes up remaining space */
+.d-none.d-md-flex.align-items-center > .search-container {
+  flex-grow: 1;
+  max-width: 550px; /* Adjusted max-width for a more balanced look */
+}
+
+/* Specific styling for mobile logo if needed, using existing class structure */
+/* The general .logo img rules might cover mobile, but this is more specific */
+.main-header .col-6.d-md-none .logo img {
+  max-height: 50px; /* Ensure mobile logo is still a good size, adjust if needed from previous 45px/40px */
+}
